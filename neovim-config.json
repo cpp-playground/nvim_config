@@ -1,0 +1,24 @@
+{
+    "version": "1.0",
+    "description" : "Neovim config",
+    "homepage": "https://github.com/cpp-playground/nvim_config",
+    "license": "MIT",
+
+    "depends" : [
+        "extras/neovim-qt",
+        "main/neovim",
+        "main/nodejs-lts", 
+        "main/python", 
+        "main/zig",
+        "nerd-fonts/Hack-NF",
+        "versions/python310"
+    ],
+
+    "url": "https://github.com/cpp-playground/nvim_config/archive/master.zip",
+
+    "extract_dir": "nvim_config-master",
+    
+    "pre_install" : "Remove-Item $env:LOCALAPPDATA/nvim -Recurse",
+    "post_uninstall" : "Remove-Item $env:LOCALAPPDATA/nvim -Recurse",
+    "post_install" : "Copy-Item -Path $env:HOMEPATH/scoop/apps/neovim-config/current -Destination $env:LOCALAPPDATA/nvim -Recurse"
+}
