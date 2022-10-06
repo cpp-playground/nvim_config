@@ -29,8 +29,8 @@ end
 
 M.sanitize_config = function(config)
     -- lsp config is required
-    if config.lsp == nil then
-        config.lsp = {}
+    if config.language_support == nil then
+        config.language_support = {}
     end
 
     if config.colorscheme == nil then

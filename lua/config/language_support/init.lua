@@ -3,6 +3,34 @@ M = {}
 
 M.setup = function(config)
 
+
+    local treesitter_languages = {}
+    if config.supported_languages ~= nil then
+        treesitter_languages = config.supported_languages
+    end
+    require 'nvim-treesitter.configs'.setup({
+        ensure_installed = treesitter_languages,
+        auto_install = true,
+        highlight = {
+            enable = true,
+            additional_vim_regex_highlighting = false,
+        },
+        context_commentstring = {
+            enable = true,
+            enable_autocmd = false,
+        },
+        rainbow = {
+            enable = true,
+            extended_mode = false,
+            max_file_lines = nil,
+        },
+        autopairs = { enable = true },
+        autotag = { enable = true },
+        incremental_selection = { enable = true },
+        indent = { enable = false }
+    })
+
+
     require("mason").setup({
         ui = {
             check_outdated_packages_on_open = true,
@@ -85,6 +113,7 @@ M.setup = function(config)
             end
         end,
     })
+
 
 end
 

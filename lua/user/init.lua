@@ -1,6 +1,6 @@
-local config_lsp = require("config.lsp")
+local config_lsp = require("config.language_support")
 return {
-    lsp = {
+    language_support = {
         lsp = {
             ensure_installed = {
                 "bashls",
@@ -42,7 +42,20 @@ return {
                 require("null-ls").builtins.formatting.shfmt.with({ extra_args = { "--indent=4",
                     "--language-dialect=bash" } }),
             }
-        }
+        },
+
+        supported_languages = {
+            "c",
+            "cpp",
+            "rust",
+            "python",
+            "bash",
+            "cmake",
+            "json",
+            "lua",
+            "markdown",
+            "yaml"
+        },
     },
 
     colorscheme = "kanagawa",

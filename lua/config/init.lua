@@ -2,7 +2,6 @@ M = {}
 
 
 M.setup = function(config)
-    require 'config.treesitter'
     require 'config.lualine'
     require 'config.bufferline'
     require 'config.diagnostics'
@@ -10,8 +9,8 @@ M.setup = function(config)
     require 'config.alpha'
     require 'config.telescope'
 
-    local config_lsp = require("config.lsp")
-    config_lsp.setup(config.lsp)
+    local language_support_cfg = require("config.language_support")
+    language_support_cfg.setup(config.language_support)
 
     require("neo-tree").setup({
         close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
