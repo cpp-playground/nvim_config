@@ -25,4 +25,20 @@ M.toggle_diagnostic_virtual_lines = function()
     end
 end
 
+
+
+M.sanitize_config = function(config)
+    -- lsp config is required
+    if config.lsp == nil then
+        config.lsp = {}
+    end
+
+    if config.colorscheme == nil then
+        config.colorscheme = "gruvbox"
+    end
+
+    return config
+end
+
+
 return M
