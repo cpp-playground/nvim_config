@@ -57,7 +57,7 @@ M.setup = function(config)
     local whichkey = require "which-key"
     local conf = {
         window = {
-            border = "single", -- none, single, double, shadow
+            border = "rounded", -- none, single, double, shadow
             position = "bottom", -- bottom, top
         },
     }
