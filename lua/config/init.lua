@@ -3,13 +3,13 @@ M = {}
 
 M.setup = function(config)
     require 'config.autocomplete'
-    require 'config.telescope'
 
     require("config.editor_ui").setup()
     require("config.alpha").setup()
     require("config.language_support").setup(config.language_support)
     require("config.neo-tree").setup()
     require("config.diagnostics").setup()
+    require("config.telescope").setup()
 
     local saga = require('lspsaga')
 
