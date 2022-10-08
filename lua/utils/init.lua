@@ -18,11 +18,9 @@ M.diagnostics_as_virtual_lines = function()
 end
 
 M.toggle_diagnostic_virtual_lines = function()
-    if vim.diagnostic.config().virtual_lines then
-        M.diagnostics_as_virtual_text()
-    else
-        M.diagnostics_as_virtual_lines()
-    end
+
+    vim.diagnostic.config({ virtual_text = vim.diagnostic.config().virtual_lines })
+    vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })
 end
 
 
