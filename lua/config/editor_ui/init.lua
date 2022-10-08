@@ -7,6 +7,7 @@ M.setup = function()
     require "config.editor_ui.lualine"
 
 
+    require("scrollbar").setup()
 end
 
 

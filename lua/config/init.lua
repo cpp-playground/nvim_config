@@ -11,7 +11,6 @@ M.setup = function(config)
     require("config.language_support").setup(config.language_support)
     require("config.neo-tree").setup()
 
-    require("scrollbar").setup()
 
     local saga = require('lspsaga')
 
