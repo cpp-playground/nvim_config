@@ -2,13 +2,12 @@ M = {}
 
 
 M.setup = function(config)
-    require 'config.lualine'
-    require 'config.bufferline'
     require 'config.diagnostics'
     require 'config.autocomplete'
-    require 'config.alpha'
     require 'config.telescope'
 
+    require("config.editor_ui").setup()
+    require("config.alpha").setup()
     require("config.language_support").setup(config.language_support)
     require("config.neo-tree").setup()
 
