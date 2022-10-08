@@ -18,11 +18,25 @@ M.diagnostics_as_virtual_lines = function()
 end
 
 M.toggle_diagnostic_virtual_lines = function()
-    if vim.diagnostic.config().virtual_lines then
-        M.diagnostics_as_virtual_text()
-    else
-        M.diagnostics_as_virtual_lines()
-    end
+
+    vim.diagnostic.config({ virtual_text = vim.diagnostic.config().virtual_lines })
+    vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })
 end
+
+
+
+M.sanitize_config = function(config)
+    -- lsp config is required
+    if config.language_support == nil then
+        config.language_support = {}
+    end
+
+    if config.colorscheme == nil then
+        config.colorscheme = "gruvbox"
+    end
+
+    return config
+end
+
 
 return M

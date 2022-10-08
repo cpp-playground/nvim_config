@@ -1,7 +1,20 @@
 vim.api.nvim_command('set termguicolors')
 
+
+local utils = require("utils")
+local has_user_config = utils.prequire("user")
+
+local user_config = {}
+if has_user_config then
+    user_config = require("user")
+end
+user_config = utils.sanitize_config(user_config)
+
 require "setup"
-require "config"
+
+
+require("config").setup(user_config)
+
 require "mappings"
 
 -- Commands/Whichkey related
@@ -33,5 +46,5 @@ vim.fn.sign_define("DiagnosticSignHint",
     { text = "", texthl = "DiagnosticSignHint" })
 
 require("themer").setup({
-    colorscheme = "kanagawa"
+    colorscheme = user_config.colorscheme
 })
