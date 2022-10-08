@@ -27,3 +27,10 @@ M.setup = function()
 end
 
 return M
+
+-- TODO: Let user add extensions easily?
+-- TODO: Check how to setup nicer hunk based git status
+-- Potentially based on gitsign quick fix?
+--https://github.com/lewis6991/gitsigns.nvim/blob/233e65a521966831571f799846c481cecbe0117c/teal/gitsigns/actions.tl#L996
+-- Or on its implementation 
+--

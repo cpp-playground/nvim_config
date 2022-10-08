@@ -106,3 +106,7 @@ end
 
 
 return M
+
+-- TODO: Fix auto complete triggers
+-- TODO: Fix priority handling
+-- TODO: Handle more sources

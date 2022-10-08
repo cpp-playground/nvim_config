@@ -51,3 +51,5 @@ end
 
 
 return M
+
+-- TODO: Provide some configuration level and more configuration options for the menu

@@ -37,3 +37,5 @@ require('bufferline').setup {
         show_close_icon = false,
     }
 }
+
+-- TODO: Fix icon (Cpp headers)
