@@ -2,6 +2,10 @@ M = {}
 
 
 M.setup = function(config)
+    require("nvim-web-devicons").setup({
+        color_icons = true,
+        default = true
+    })
 
     require("config.editor_ui").setup()
     require("config.alpha").setup()

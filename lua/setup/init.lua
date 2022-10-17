@@ -45,7 +45,9 @@ return require("packer").startup(function(use)
 
 
     -- UI ELements
-    use { "akinsho/bufferline.nvim", tag = "v2.*" } -- Buffer line (aka tabs)
+    use {
+        "akinsho/bufferline.nvim",
+    } -- Buffer line (aka tabs)
     use "nvim-lualine/lualine.nvim" -- Status line (bottom one)
     use "petertriho/nvim-scrollbar" -- Side scrollbar
     use "lukas-reineke/indent-blankline.nvim" -- Show indent lines
@@ -54,7 +56,7 @@ return require("packer").startup(function(use)
 
     -- File explorer
     vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-    use { "nvim-neo-tree/neo-tree.nvim", branch = "v2.x" }
+    use { "nvim-neo-tree/neo-tree.nvim" }
 
     use "folke/trouble.nvim" -- Diagnostic visualizer
     use "folke/which-key.nvim" -- Shows which commands are available
