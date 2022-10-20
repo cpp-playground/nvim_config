@@ -38,4 +38,6 @@ require('bufferline').setup {
     }
 }
 
--- TODO: Fix icon (Cpp headers)
+-- FIXME: Bufferline change icons based on the filetype. Filetype for hpp files is cpp so they are shown with the C++ icon
+-- rather than being shown with the Hpp icon as you would expect.
+-- This particularly annoying because neo-tree and lualine are able to do the difference properly.
