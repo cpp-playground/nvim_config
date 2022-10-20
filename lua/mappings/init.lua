@@ -63,7 +63,7 @@ local diagnostics_mappings = {
 wk.register(diagnostics_mappings, normal_opts)
 
 local misc_mappings_normal = {
-    w = { "<cmd>update!<CR>", "Save file" },
+    w = { "<cmd>w<CR>", "Save file" },
     q = { "<cmd>q!<CR>", "Quit" },
     d = { "<cmd>Bdelete<CR>", "Close file" },
     e = { "<cmd>Neotree toggle<CR>", "Toggle file explorer" },
