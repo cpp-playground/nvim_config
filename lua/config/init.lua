@@ -7,15 +7,18 @@ M.setup = function(config)
         default = true
     })
 
-    require("config.editor_ui").setup()
-    require("config.alpha").setup()
-    require("config.language_support").setup(config.language_support)
-    require("config.neo-tree").setup()
-    require("config.diagnostics").setup()
-    require("config.telescope").setup()
-    require("config.autocomplete").setup()
-
-
+    local modules = {
+        "editor_ui",
+        "alpha",
+        "language_support",
+        "neo-tree",
+        "diagnostics",
+        "telescope",
+        "autocomplete"
+    }
+    for _, mod in ipairs(modules) do
+        require("config." .. mod).setup(config[mod])
+    end
 
     local saga = require('lspsaga')
 
