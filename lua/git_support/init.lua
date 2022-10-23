@@ -91,4 +91,58 @@ M.mount_layout = function()
     M.make_git_commit_layout()
 end
 
+
+M.get_modified_files = function()
+    local files = {}
+    local output = require("utils").run_command("git status --porcelain")
+    if output then
+        for file in output:gmatch(" M ([^\n]+)\n?") do
+            table.insert(files, file)
+        end
+    end
+    return files
+end
+
+M.get_diff_for_file = function(file)
+    local output = require("utils").run_command("git --no-pager diff " .. file)
+    if output then
+        return output
+    end
+    return nil
+end
+
+M.diff_to_hunks = function(diff_str)
+    local header = diff_str:gmatch("[^@]+")()
+
+    local hunks = {}
+    for hunk in diff_str:gmatch("(@@[^@]+@@[^@]+)") do
+        table.insert(hunks, header .. hunk)
+    end
+    return hunks
+end
+
+M.get_hunks = function()
+    local hunks = {}
+    local modified_files = M.get_modified_files()
+    for _, file in ipairs(modified_files) do
+
+        local diff = M.get_diff_for_file(file)
+        if diff then
+            local i = 0
+            local raw_hunks = M.diff_to_hunks(diff)
+            for _, h in ipairs(raw_hunks) do
+                local new_hunk = {}
+                new_hunk["file"] = file
+                new_hunk["data"] = h
+                new_hunk["index"] = i
+
+                table.insert(hunks, new_hunk)
+                i = i + 1
+            end
+        end
+    end
+    return hunks
+end
+
+
 return M
