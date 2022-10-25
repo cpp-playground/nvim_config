@@ -6,8 +6,6 @@ local conf = require("telescope.config").values
 local actions = require "telescope.actions"
 local action_state = require "telescope.actions.state"
 
-
-
 local git = require("git_support")
 
 
@@ -20,17 +18,39 @@ local function make_entry(entry)
     }
 end
 
+local diff_previewer = previewers.new_buffer_previewer {
+    title = "Git Show Preview",
+
+    get_buffer_by_name = function(_, entry)
+        return entry.value
+    end,
+
+    define_preview = function(self, entry, status)
+        local t = {}
+        for str in entry.value["data"]:gmatch("([^\n]*)\n?") do
+            table.insert(t, str)
+        end
+        vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, t)
+        vim.api.nvim_buf_set_option(self.state.bufnr, "syntax", "diff")
+    end,
+}
+
 local find_hunks = function(opts)
     opts = opts or {}
 
     pickers.new(opts,
         {
             prompt_title = "Hunks",
+            selection_caret = "> 﨡",
+            entry_prefix = "  﨡",
+            multi_icon = "蘒",
+
             finder = finders.new_table {
                 results = git.get_hunks(),
                 entry_maker = make_entry
             },
-            previewer = conf.grep_previewer(opts),
+            -- previewer = conf.grep_previewer(opts),
+            previewer = diff_previewer,
             sorter = conf.generic_sorter(opts),
             attach_mappings = function(prompt_bufnr, map)
                 actions.select_default:replace(function()
@@ -40,26 +60,19 @@ local find_hunks = function(opts)
                     for _, selection in ipairs(picker:get_multi_selection()) do
                         diff = diff .. selection.value["data"]
                     end
-                    -- require("notify")(diff)
                     actions.close(prompt_bufnr)
 
                     local diff_file_name = os.tmpname()
-                    require("notify")(diff_file_name)
                     local patch_file = io.open(diff_file_name, "w")
                     if patch_file then
                         patch_file:write(diff)
                         patch_file:close()
-                        require("notify")(require("utils").run_command("git apply --cached " .. diff_file_name))
-                    else
-                        require("notify")("RAHHHHHHHH")
+                        require("utils").run_command("git apply --cached " .. diff_file_name)
                     end
                 end)
                 return true
             end,
         }):find()
-
-
 end
-
 
 find_hunks()
