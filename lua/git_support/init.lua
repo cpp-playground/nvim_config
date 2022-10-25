@@ -112,11 +112,41 @@ M.get_diff_for_file = function(file)
 end
 
 M.diff_to_hunks = function(diff_str)
-    local header = diff_str:gmatch("[^@]+")()
-
     local hunks = {}
-    for hunk in diff_str:gmatch("(@@[^@]+@@[^@]+)") do
-        table.insert(hunks, header .. hunk)
+    local file_header = ""
+    local current_hunk = ""
+
+    local passed_header = false
+    for str in diff_str:gmatch("([^\n]*)\n?") do
+        if not passed_header then
+            if string.sub(str, 1, 2) == "@@" then
+                passed_header = true
+                current_hunk = str
+            else
+                file_header = file_header .. str .. "\n"
+            end
+        else
+
+            if string.sub(str, 1, 2) == "@@" then
+                local hunk = {}
+                hunk["header"] = file_header
+                hunk["raw"] = file_header .. current_hunk
+                hunk["print"] = file_header .. current_hunk
+                table.insert(hunks, hunk)
+
+                current_hunk = str
+            else
+                current_hunk = current_hunk .. "\n" .. str
+            end
+        end
+
+    end
+    if current_hunk ~= "" then
+        local hunk = {}
+        hunk["header"] = file_header
+        hunk["raw"] = file_header .. current_hunk
+        hunk["print"] = file_header .. current_hunk
+        table.insert(hunks, hunk)
     end
     return hunks
 end

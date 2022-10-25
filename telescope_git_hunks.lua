@@ -13,13 +13,13 @@ local function make_entry(entry)
     return {
         value = entry,
         display = entry["file"] .. "/" .. entry["index"],
-        ordinal = entry["data"],
+        ordinal = entry["data"].raw,
         path = entry["file"],
     }
 end
 
 local diff_previewer = previewers.new_buffer_previewer {
-    title = "Git Show Preview",
+    title = "Current Hunk diff",
 
     get_buffer_by_name = function(_, entry)
         return entry.value
@@ -27,7 +27,7 @@ local diff_previewer = previewers.new_buffer_previewer {
 
     define_preview = function(self, entry, status)
         local t = {}
-        for str in entry.value["data"]:gmatch("([^\n]*)\n?") do
+        for str in entry.value["data"].print:gmatch("([^\n]*)\n?") do
             table.insert(t, str)
         end
         vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, t)
@@ -58,7 +58,7 @@ local find_hunks = function(opts)
 
                     local diff = ""
                     for _, selection in ipairs(picker:get_multi_selection()) do
-                        diff = diff .. selection.value["data"]
+                        diff = diff .. selection.value["data"].raw .. "\n"
                     end
                     actions.close(prompt_bufnr)
 
