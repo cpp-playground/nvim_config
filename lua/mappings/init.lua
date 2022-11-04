@@ -81,6 +81,7 @@ local git_mappings = {
         l = { "<cmd>Telescope git_commits<CR>", "Search Commits" },
         S = { "<cmd>Telescope git_branches<CR>", "Search Stashes" },
         s = { "<cmd>Telescope git_status<CR>", "Status" },
+        h = { "<cmd>Telescope git_hunks<CR>", "Stage Hunks" },
         c = { require("git_support").mount_layout, "Commit" }
     }
 }
