@@ -25,7 +25,7 @@ local diff_previewer = previewers.new_buffer_previewer {
         return entry.value
     end,
 
-    define_preview = function(self, entry, status)
+    define_preview = function(self, entry, _)
         local t = {}
         for str in entry.value["data"].print:gmatch("([^\n]*)\n?") do
             table.insert(t, str)
@@ -35,7 +35,10 @@ local diff_previewer = previewers.new_buffer_previewer {
     end,
 }
 
-local find_hunks = function(opts)
+
+M = {}
+
+M.find_hunks = function(opts)
     opts = opts or {}
 
     pickers.new(opts,
@@ -52,7 +55,7 @@ local find_hunks = function(opts)
             -- previewer = conf.grep_previewer(opts),
             previewer = diff_previewer,
             sorter = conf.generic_sorter(opts),
-            attach_mappings = function(prompt_bufnr, map)
+            attach_mappings = function(prompt_bufnr, _)
                 actions.select_default:replace(function()
                     local picker = action_state.get_current_picker(prompt_bufnr)
 
@@ -75,4 +78,4 @@ local find_hunks = function(opts)
         }):find()
 end
 
-find_hunks()
+return M

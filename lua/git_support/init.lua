@@ -92,7 +92,7 @@ M.mount_layout = function()
 end
 
 
-M.get_modified_files = function()
+local get_modified_files = function()
     local files = {}
     local output = require("utils").run_command("git status --porcelain")
     if output then
@@ -103,7 +103,7 @@ M.get_modified_files = function()
     return files
 end
 
-M.get_diff_for_file = function(file)
+local get_diff_for_file = function(file)
     local output = require("utils").run_command("git --no-pager diff " .. file)
     if output then
         return output
@@ -111,7 +111,7 @@ M.get_diff_for_file = function(file)
     return nil
 end
 
-M.diff_to_hunks = function(diff_str)
+local diff_to_hunks = function(diff_str)
     local hunks = {}
     local file_header = ""
     local current_hunk = ""
@@ -153,13 +153,13 @@ end
 
 M.get_hunks = function()
     local hunks = {}
-    local modified_files = M.get_modified_files()
+    local modified_files = get_modified_files()
     for _, file in ipairs(modified_files) do
 
-        local diff = M.get_diff_for_file(file)
+        local diff = get_diff_for_file(file)
         if diff then
             local i = 0
-            local raw_hunks = M.diff_to_hunks(diff)
+            local raw_hunks = diff_to_hunks(diff)
             for _, h in ipairs(raw_hunks) do
                 local new_hunk = {}
                 new_hunk["file"] = file
