@@ -12,35 +12,7 @@ local function entry_filter_function(entry, ctx)
     return true
 end
 
-local cfg = {
-    bind = true,
-    wrap = true,
-    floating_window = true,
-    floating_window_above_cur_line = true,
-
-
-    close_timeout = 1000,
-    fix_pos = false,
-    hint_enable = false,
-    hi_parameter = "LspSignatureActiveParameter",
-    handler_opts = {
-        border = "rounded"
-    },
-
-    always_trigger = false,
-
-    transparency = nil, -- disabled by default, allow floating win transparent value 1~100
-    timer_interval = 200, -- default timer check interval set to lower value if you want to reduce latency
-    toggle_key = '<A-CR>', -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
-
-    select_signature_key = nil, -- cycle to next signature, e.g. '<M-n>' function overloading
-    move_cursor_key = nil, -- imap, use nvim_set_current_win to move cursor between current win and floating
-}
-
 M.setup = function()
-    require "lsp_signature".setup(cfg)
-
-
     local cmp = require 'cmp'
 
     cmp.setup({

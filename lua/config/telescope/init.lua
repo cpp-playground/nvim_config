@@ -21,7 +21,6 @@ M.setup = function()
     telescope.load_extension('fzf')
     telescope.load_extension('glyph')
     telescope.load_extension('themes')
-    telescope.load_extension('session-lens')
     telescope.load_extension('git_hunks')
 
 end

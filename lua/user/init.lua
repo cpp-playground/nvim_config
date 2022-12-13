@@ -36,11 +36,12 @@ return {
             }
         },
         null_ls = {
-            ensure_installed = { "black", "shfmt" },
+            ensure_installed = { "black", "shfmt", "cmake_format" },
             sources = {
                 require("null-ls").builtins.formatting.black.with({ extra_args = { "-l 100" } }),
                 require("null-ls").builtins.formatting.shfmt.with({ extra_args = { "--indent=4",
                     "--language-dialect=bash" } }),
+                require("null-ls").builtins.formatting.cmake_format,
             }
         },
 

@@ -80,13 +80,6 @@ M.setup = function(config)
 
     require("gitsigns").setup()
 
-    vim.o.sessionoptions = "buffers,curdir,localoptions,options,tabpages"
-    require("auto-session").setup {
-        auto_restore_enabled = false,
-    }
-    require("session-lens").setup()
-
-
 end
 
 return M

@@ -31,7 +31,6 @@ return require("packer").startup(function(use)
     use "nvim-treesitter/nvim-treesitter" -- Code parser
 
     -- Auto-completion
-    use "ray-x/lsp_signature.nvim" -- Show parameters of current function when typing
     use {
         "hrsh7th/nvim-cmp", -- Auto-completion engine
         requires = {
@@ -82,10 +81,6 @@ return require("packer").startup(function(use)
 
     -- Themes
     use "themercorp/themer.lua"
-
-    -- Sessions
-    use "rmagatti/auto-session"
-    use "rmagatti/session-lens"
 
 
     -- Automatically set up your configuration after cloning packer.nvim
