@@ -41,7 +41,7 @@ return require("packer").startup(function(use)
     use "onsails/lspkind.nvim" -- cmp output formating
     use({ "L3MON4D3/LuaSnip", tag = "v1.*" }) -- Snipet expansion for cmp
 
-
+    use "lvimuser/lsp-inlayhints.nvim"
 
     -- UI ELements
     use {
