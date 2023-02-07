@@ -22,26 +22,25 @@ M.setup = function(config)
 
     local saga = require('lspsaga')
 
-    saga.init_lsp_saga({
-        border_style = "rounded",
-        finder_action_keys = {
-            open = "<CR>",
+    saga.setup({
+        finder = {
+            edit = { "<CR>" },
+            vsplit = "<C-v>",
+            split = "<C-s>",
+            tabe = "<C-t>",
+            quit = { "q" },
+        },
+        definition = {
+            edit = "<CR>",
             vsplit = "<C-v>",
             split = "<C-s>",
             tabe = "<C-t>",
             quit = "q",
         },
-        definition_action_keys = {
-            open = "<CR>",
-            vsplit = "<C-v>",
-            split = "<C-s>",
-            tabe = "<C-t>",
-            quit = "q",
-        },
-        code_action_lightbulb = {
+        lightbulb = {
             enable = false
         },
-
+        -- ui = { border = "rounded" }
     })
 
 
