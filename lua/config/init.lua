@@ -40,14 +40,46 @@ M.setup = function(config)
         lightbulb = {
             enable = false
         },
-        -- ui = { border = "rounded" }
+        outline = {
+            win_position = "right",
+            win_with = "",
+            win_width = 30,
+            show_detail = true,
+            auto_preview = true,
+            auto_refresh = true,
+            auto_close = true,
+            custom_sort = nil,
+            keys = {
+                jump = "o",
+                expand_collapse = "u",
+                quit = "q",
+            },
+        },
+        ui = {
+            -- Currently, only the round theme exists
+            theme = "round",
+            -- This option only works in Neovim 0.9
+            title = true,
+            -- Border type can be single, double, rounded, solid, shadow.
+            border = "rounded",
+            winblend = 0,
+            expand = "",
+            collapse = "",
+            preview = " ",
+            code_action = "💡",
+            diagnostic = "🐞",
+            incoming = " ",
+            outgoing = " ",
+            hover = ' ',
+            kind = {},
+        },
     })
 
 
     require 'colorizer'.setup({ "*" }, {
-        RGB    = true; -- #RGB hex codes
-        RRGGBB = true; -- #RRGGBB hex codes
-        names  = false; -- "Name" codes like Blue
+        RGB    = true, -- #RGB hex codes
+        RRGGBB = true, -- #RRGGBB hex codes
+        names  = false, -- "Name" codes like Blue
     })
 
     require("todo-comments").setup({})
@@ -86,7 +118,7 @@ M.setup = function(config)
         },
     }
 
-
+    require("dapui").setup()
 
     vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -101,8 +133,6 @@ M.setup = function(config)
             require("lsp-inlayhints").on_attach(client, bufnr)
         end,
     })
-
-
 end
 
 return M

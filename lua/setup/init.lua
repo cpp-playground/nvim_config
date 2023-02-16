@@ -12,6 +12,7 @@ return require("packer").startup(function(use)
     use "williamboman/mason.nvim" -- Install tools
     use "williamboman/mason-lspconfig.nvim" -- Use Mason to install lsp clients
     use "jayp0521/mason-null-ls.nvim" -- Use Mason to install formatters
+    use "jay-babu/mason-nvim-dap.nvim" -- Use Mason to install DAP tools
 
     -- Libs
     use "nvim-lua/plenary.nvim" -- Async programming library
@@ -22,7 +23,16 @@ return require("packer").startup(function(use)
     -- LSP
     use "neovim/nvim-lspconfig" -- LSP Server configurator
     use "lukas-reineke/lsp-format.nvim" -- LSP Based code formating
-    use "glepnir/lspsaga.nvim" -- LSP Integration (code action, etc)
+    use { "glepnir/lspsaga.nvim",
+        requires = {
+            { "nvim-tree/nvim-web-devicons" },
+            { "nvim-treesitter/nvim-treesitter" }
+        }
+    } -- LSP Integration (code action, etc)
+
+
+    --DAP
+    use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
 
     -- Formaters
     use "jose-elias-alvarez/null-ls.nvim" -- Run formaters as if they were LSP clients
@@ -55,7 +65,7 @@ return require("packer").startup(function(use)
 
     -- File explorer
     vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-    use { "nvim-neo-tree/neo-tree.nvim" }
+    use { "nvim-neo-tree/neo-tree.nvim", branch = "v2.x", }
 
     use "folke/trouble.nvim" -- Diagnostic visualizer
     use "folke/which-key.nvim" -- Shows which commands are available
@@ -71,7 +81,7 @@ return require("packer").startup(function(use)
 
 
     -- Telescope and extensions
-    use { "nvim-telescope/telescope.nvim", tag = "0.1.0" } --Finds stuff
+    use { "nvim-telescope/telescope.nvim", tag = "0.1.1" } --Finds stuff
     use "ghassan0/telescope-glyph.nvim" -- Find glyphs like 
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" } -- Fzf finder to go faster
 

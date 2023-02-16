@@ -11,7 +11,7 @@ return {
                 "pyright",
                 "rust_analyzer",
                 "yamlls",
-                "sumneko_lua"
+                "lua_ls"
             },
 
             server_configs = {
@@ -32,7 +32,7 @@ return {
                         }
                     }
                 },
-                sumneko_lua = { on_attach = config_lsp.on_attach_with_format },
+                lua_ls = { on_attach = config_lsp.on_attach_with_format },
             }
         },
         null_ls = {
@@ -58,6 +58,5 @@ return {
             "yaml"
         },
     },
-
     colorscheme = "kanagawa",
 }

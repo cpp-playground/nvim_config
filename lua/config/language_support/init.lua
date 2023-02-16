@@ -2,8 +2,6 @@ M = {}
 
 
 M.setup = function(config)
-
-
     local treesitter_languages = {}
     if config.supported_languages ~= nil then
         treesitter_languages = config.supported_languages
@@ -64,6 +62,11 @@ M.setup = function(config)
             },
         },
     })
+    require("mason-nvim-dap").setup({
+        ensure_installed = { "codelldb" },
+        automatic_setup = true,
+    })
+    require 'mason-nvim-dap'.setup_handlers()
 
     local lsp_servers = {}
     if config.lsp ~= nil and config.lsp.ensure_installed ~= nil then
@@ -113,8 +116,6 @@ M.setup = function(config)
             end
         end,
     })
-
-
 end
 
 
@@ -122,6 +123,7 @@ M.on_attach_with_format = function(client, _)
     require("lsp-format").on_attach(client)
 end
 
-M.on_attach_default = function(_, _) end
+M.on_attach_default = function(_, _)
+end
 
 return M

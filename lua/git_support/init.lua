@@ -40,38 +40,38 @@ M.make_git_commit_layout = function()
     local Popup = require("nui.popup")
 
     local commit_desc = Popup(
-        {
-            border = M.make_border({
-                top = " Commit Description ",
-                top_align = "left",
-            }),
-            win_options = M.win_options,
-            enter = true
-        }
-    )
+            {
+                border = M.make_border({
+                    top = " Commit Description ",
+                    top_align = "left",
+                }),
+                win_options = M.win_options,
+                enter = true
+            }
+        )
 
     local commit_msg = Popup({
-        border = M.make_border({
-            top = " Commit Body ",
-            top_align = "left",
-        }),
-        win_options = M.win_options
-    })
+            border = M.make_border({
+                top = " Commit Body ",
+                top_align = "left",
+            }),
+            win_options = M.win_options
+        })
 
 
     local layout = Layout(
-        {
-            position = "50%",
-            size = {
-                width = 80,
-                height = 40,
+            {
+                position = "50%",
+                size = {
+                    width = 80,
+                    height = 40,
+                },
             },
-        },
-        Layout.Box({
-            Layout.Box(commit_desc, { size = 3 }),
-            Layout.Box(commit_msg, { size = "60%" }),
-        }, { dir = "col" })
-    )
+            Layout.Box({
+                Layout.Box(commit_desc, { size = 3 }),
+                Layout.Box(commit_msg, { size = "60%" }),
+            }, { dir = "col" })
+        )
 
 
     commit_msg:map("n", "<esc>", function(bufnr)
@@ -126,7 +126,6 @@ local diff_to_hunks = function(diff_str)
                 file_header = file_header .. str .. "\n"
             end
         else
-
             if string.sub(str, 1, 2) == "@@" then
                 local hunk = {}
                 hunk["header"] = file_header
@@ -139,7 +138,6 @@ local diff_to_hunks = function(diff_str)
                 current_hunk = current_hunk .. "\n" .. str
             end
         end
-
     end
     if current_hunk ~= "" then
         local hunk = {}
@@ -155,7 +153,6 @@ M.get_hunks = function()
     local hunks = {}
     local modified_files = get_modified_files()
     for _, file in ipairs(modified_files) do
-
         local diff = get_diff_for_file(file)
         if diff then
             local i = 0

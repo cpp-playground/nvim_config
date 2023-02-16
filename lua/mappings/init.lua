@@ -30,7 +30,7 @@ local lsp_mappings_normal = {
         a = { "<cmd>Lspsaga code_action<CR>", "Code action" },
         r = { "<cmd>Lspsaga rename<CR>", "Rename symbol" },
         p = { "<cmd>Lspsaga peek_definition<CR>", "Peek definition" },
-        o = { "<cmd>LSoutlineToggle<CR>", "Show buffer outline" },
+        o = { "<cmd>Lspsaga outline<CR>", "Show buffer outline" },
         d = { "<cmd>Lspsaga hover_doc<CR>", "Show documentation" },
     }
 }
@@ -57,7 +57,6 @@ local diagnostics_mappings = {
         S = { utils.toggle_diagnostic_virtual_lines, "Switch diagnostics representation" },
         T = { "<cmd>:TroubleToggle<CR>", "Toggle diagnostics window" }
     },
-
 }
 
 wk.register(diagnostics_mappings, normal_opts)
