@@ -87,6 +87,19 @@ local git_mappings = {
 wk.register(git_mappings, normal_opts)
 
 
+local copilot_mappings = {
+    C = {
+        name = "Copilot",
+        e = { "<cmd>let g:copilot_enabled = 1<CR>", "Enable copilot" },
+        d = { "<cmd>let g:copilot_enabled = 0<CR>", "Disable copilot" },
+        p = { "<cmd>Copilot panel<CR>", "Open copilot panel" },
+        o = { "<cmd>Copilot open<CR>", "Open copilot in a new window" },
+    }
+}
+wk.register(copilot_mappings, normal_opts)
+
+
+
 local esc = vim.api.nvim_replace_termcodes(
     '<ESC>', true, false, true
 )
@@ -116,3 +129,8 @@ keymap("n", "<C-h>", "<cmd>wincmd h<CR>", { silent = true, desc = "Goto left win
 keymap("n", "<C-l>", "<cmd>wincmd l<CR>", { silent = true, desc = "Goto right window" })
 keymap("n", "<C-j>", "<cmd>wincmd j<CR>", { silent = true, desc = "Goto top window" })
 keymap("n", "<C-k>", "<cmd>wincmd k<CR>", { silent = true, desc = "Goto bottom window" })
+
+-- Triggers copilot suggestion with Alt + space
+keymap("i", "<F8>", "<Plug>(copilot-suggest)", { silent = true, desc = "Trigger copilot suggestion" })
+keymap("i", "<F10>", "<Plug>(copilot-next)", { silent = true, desc = "Next copilot suggestion" })
+keymap("i", "<F9>", "<Plug>(copilot-previous)", { silent = true, desc = "Previous copilot suggestion" })

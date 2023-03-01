@@ -6,6 +6,15 @@ function toggle_trouble()
     vim.api.nvim_command("TroubleToggle")
 end
 
+function copilot_status()
+    local enabled = vim.g.copilot_enabled == 1
+    local ret = ""
+    if enabled then
+        ret = "ﯙ "
+    end
+    return ret
+end
+
 require('lualine').setup {
     options = {
         theme = 'auto',
@@ -24,8 +33,8 @@ require('lualine').setup {
             on_click = show_global_diff } },
         lualine_c = {},
         lualine_x = {},
-        lualine_y = { { 'filetype', icon_only = false, icon = true },
-            { 'diagnostics', always_visible = true, on_click = toggle_trouble } },
+        lualine_y = { { "copilot_status()" }, { 'filetype', icon_only = false, icon = true },
+            { 'diagnostics',     always_visible = true, on_click = toggle_trouble } },
         lualine_z = { 'location', { 'progress', separator = { left = '', right = '' } } }
     },
     inactive_sections = {

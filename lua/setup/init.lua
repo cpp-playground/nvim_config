@@ -93,6 +93,9 @@ return require("packer").startup(function(use)
     use "themercorp/themer.lua"
 
 
+    -- Copilot?
+    use "github/copilot.vim"
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if is_bootstraping then

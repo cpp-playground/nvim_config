@@ -17,17 +17,21 @@ require("config").setup(user_config)
 
 require "mappings"
 
+
+-- Disable Copilot by default
+vim.g.copilot_enabled = 0
+
 -- Commands/Whichkey related
-vim.g.mapleader = " "
-vim.opt.timeoutlen = 300
+vim.g.mapleader       = " "
+vim.opt.timeoutlen    = 300
 
 -- Display absolute line numbers
-vim.opt.number = true
+vim.opt.number        = true
 
 -- Tabs
-vim.opt.tabstop     = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth  = 4
+vim.opt.tabstop       = 4
+vim.opt.softtabstop   = 4
+vim.opt.shiftwidth    = 4
 vim.api.nvim_command('set expandtab')
 
 -- Mouse support
