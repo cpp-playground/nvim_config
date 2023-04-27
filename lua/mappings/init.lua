@@ -75,13 +75,14 @@ wk.register(misc_mappings_normal, normal_opts)
 local git_mappings = {
     g = {
         name = "Git",
-        b = { "<cmd>Telescope git_branches<CR>", "Search Branches" },
+        B = { "<cmd>Telescope git_branches<CR>", "Search Branches" },
         L = { "<cmd>Telescope git_bcommits<CR>", "Search Buffer commits" },
         l = { "<cmd>Telescope git_commits<CR>", "Search Commits" },
         S = { "<cmd>Telescope git_branches<CR>", "Search Stashes" },
         s = { "<cmd>Telescope git_status<CR>", "Status" },
         h = { "<cmd>Telescope git_hunks<CR>", "Stage Hunks" },
-        c = { require("git_support").mount_layout, "Commit" }
+        c = { require("git_support").mount_layout, "Commit" },
+        b = { "<cmd>BlamerToggle<CR>", "Toggle Inline Git blame" },
     }
 }
 wk.register(git_mappings, normal_opts)

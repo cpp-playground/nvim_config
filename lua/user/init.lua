@@ -13,10 +13,15 @@ return {
                 "yamlls",
                 "lua_ls"
             },
-
             server_configs = {
                 bashls = { on_attach = config_lsp.on_attach_default },
-                clangd = { on_attach = config_lsp.on_attach_with_format },
+                clangd = {
+                    on_attach = config_lsp.on_attach_with_format,
+                    cmd = {
+                        "clangd",
+                        "--header-insertion=never"
+                    }
+                },
                 cmake = { on_attach = config_lsp.on_attach_with_format },
                 jsonls = { on_attach = config_lsp.on_attach_with_format },
                 marksman = { on_attach = config_lsp.on_attach_with_format },
@@ -39,12 +44,13 @@ return {
             ensure_installed = { "black", "shfmt", "cmake_format" },
             sources = {
                 require("null-ls").builtins.formatting.black.with({ extra_args = { "-l 100" } }),
-                require("null-ls").builtins.formatting.shfmt.with({ extra_args = { "--indent=4",
-                    "--language-dialect=bash" } }),
+                require("null-ls").builtins.formatting.shfmt.with({
+                    extra_args = { "--indent=4",
+                        "--language-dialect=bash" }
+                }),
                 require("null-ls").builtins.formatting.cmake_format,
             }
         },
-
         supported_languages = {
             "c",
             "cpp",

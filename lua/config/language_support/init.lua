@@ -33,13 +33,11 @@ M.setup = function(config)
         ui = {
             check_outdated_packages_on_open = true,
             border = "rounded",
-
             icons = {
                 package_installed = "✓",
                 package_pending = "➜",
                 package_uninstalled = "✗"
             },
-
             keymaps = {
                 -- Keymap to expand a package
                 toggle_package_expand = "<CR>",
@@ -64,9 +62,9 @@ M.setup = function(config)
     })
     require("mason-nvim-dap").setup({
         ensure_installed = { "codelldb" },
+        handlers = {},
         automatic_setup = true,
     })
-    require 'mason-nvim-dap'.setup_handlers()
 
     local lsp_servers = {}
     if config.lsp ~= nil and config.lsp.ensure_installed ~= nil then

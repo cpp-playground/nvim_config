@@ -43,15 +43,16 @@ M.setup = function(config)
         outline = {
             win_position = "right",
             win_with = "",
-            win_width = 30,
+            win_width = 40,
             show_detail = true,
-            auto_preview = true,
+            auto_preview = false,
             auto_refresh = true,
             auto_close = true,
             custom_sort = nil,
             keys = {
-                jump = "o",
-                expand_collapse = "u",
+                -- jump on Maj + enter
+                jump = "<Tab>",
+                expand_collapse = "<CR>",
                 quit = "q",
             },
         },
