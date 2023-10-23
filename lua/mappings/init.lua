@@ -2,36 +2,56 @@
 local wk = require("which-key")
 
 local normal_opts = {
-    mode = "n", -- NORMAL mode
+    mode = "n",     -- NORMAL mode
     prefix = "<leader>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
+    buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
     nowait = false, -- use `nowait` when creating keymaps
 }
 
 
 local visual_opts = {
-    mode = "v", -- VISUAL mode
+    mode = "v",     -- VISUAL mode
     prefix = "<leader>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
+    buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
     nowait = false, -- use `nowait` when creating keymaps
 }
 
-
+function Cycle_ai_assistant()
+    if vim.g.codeium_enabled then
+        vim.g.codeium_enabled = false
+        vim.g.copilot_enabled = 1
+    else
+        if vim.g.copilot_enabled == 1 then
+            vim.g.copilot_enabled = 0
+        else
+            vim.g.codeium_enabled = true
+        end
+    end
+end
 
 local lsp_mappings_normal = {
     l = {
         name = "Language Server tools",
 
-        f = { "<cmd>Lspsaga lsp_finder<CR>", "Find symbol" },
+        f = { "<cmd>Lspsaga finder<CR>", "Find symbol" },
         a = { "<cmd>Lspsaga code_action<CR>", "Code action" },
         r = { "<cmd>Lspsaga rename<CR>", "Rename symbol" },
+        g = { "<cmd>Lspsaga goto_definition<CR>", "Go to definition" },
         p = { "<cmd>Lspsaga peek_definition<CR>", "Peek definition" },
         o = { "<cmd>Lspsaga outline<CR>", "Show buffer outline" },
         d = { "<cmd>Lspsaga hover_doc<CR>", "Show documentation" },
+
+        F = {
+            name = "Search",
+            --Telescope based mappings
+            s = { "<cmd>Telescope lsp_document_symbols<CR>", "Document symbols" },
+            S = { "<cmd>Telescope lsp_workspace_symbols<CR>", "Workspace symbols" },
+        },
+
     }
 }
 
@@ -45,6 +65,17 @@ local lsp_mappings_visual = {
 
 wk.register(lsp_mappings_normal, normal_opts)
 wk.register(lsp_mappings_visual, visual_opts)
+
+-- Telescope mappings
+local telescope_mappings = {
+    f = {
+        name = "Find",
+        f = { "<cmd>Telescope find_files<CR>", "File name" },
+        g = { "<cmd>Telescope live_grep<CR>", "File content" },
+        b = { "<cmd>Telescope buffers<CR>", "Openned files" },
+    }
+}
+wk.register(telescope_mappings, normal_opts)
 
 
 local utils = require("utils")
@@ -63,11 +94,13 @@ wk.register(diagnostics_mappings, normal_opts)
 
 local misc_mappings_normal = {
     w = { "<cmd>w<CR>", "Save file" },
-    q = { "<cmd>q!<CR>", "Quit" },
-    d = { "<cmd>Bdelete<CR>", "Close file" },
+    Q = { "<cmd>q!<CR>", "Quit" },
+    q = { "<cmd>Bdelete<CR>", "Close file" },
     e = { "<cmd>Neotree toggle<CR>", "Toggle file explorer" },
-    A = { "<cmd>Alpha<CR>", "Toggle Alpha dashboard" },
     ["/"] = { require("Comment.api").toggle.linewise.current, "Comment line" },
+
+    x = { "<cmd>CellularAutomaton make_it_rain<CR>", "Ragequit" },
+    A = { Cycle_ai_assistant, "Cycle AI assistant" },
 }
 wk.register(misc_mappings_normal, normal_opts)
 
@@ -88,18 +121,25 @@ local git_mappings = {
 wk.register(git_mappings, normal_opts)
 
 
-local copilot_mappings = {
-    C = {
-        name = "Copilot",
-        e = { "<cmd>let g:copilot_enabled = 1<CR>", "Enable copilot" },
-        d = { "<cmd>let g:copilot_enabled = 0<CR>", "Disable copilot" },
-        p = { "<cmd>Copilot panel<CR>", "Open copilot panel" },
-        o = { "<cmd>Copilot open<CR>", "Open copilot in a new window" },
+-- Debuging mappings (using dapui and nvim-dap)
+local debug_mappings = {
+    y = {
+        name = "Debug",
+        --Breakpoints
+        y = { "<cmd>lua require('dap').toggle_breakpoint()<CR>", "Toggle breakpoint" },
+
+        --Stepping
+        u = { "<cmd>lua require('dap').continue()<CR>", "Continue" },
+        i = { "<cmd>lua require('dap').step_into()<CR>", "Step into" },
+        o = { "<cmd>lua require('dap').step_over()<CR>", "Step over" },
+        O = { "<cmd>lua require('dap').step_out()<CR>", "Step out" },
+
+        --Debugging controls
+        s = { "<cmd>lua require('dap').continue()<CR>", "Start" },
+        S = { "<cmd>lua require('dap').close()<CR>", "Stop" },
     }
 }
-wk.register(copilot_mappings, normal_opts)
-
-
+wk.register(debug_mappings, normal_opts)
 
 local esc = vim.api.nvim_replace_termcodes(
     '<ESC>', true, false, true
@@ -135,3 +175,10 @@ keymap("n", "<C-k>", "<cmd>wincmd k<CR>", { silent = true, desc = "Goto bottom w
 keymap("i", "<F8>", "<Plug>(copilot-suggest)", { silent = true, desc = "Trigger copilot suggestion" })
 keymap("i", "<F10>", "<Plug>(copilot-next)", { silent = true, desc = "Next copilot suggestion" })
 keymap("i", "<F9>", "<Plug>(copilot-previous)", { silent = true, desc = "Previous copilot suggestion" })
+
+-- Keybindings for codeium, mimicking the copilot ones
+-- vim.g.codeium_disable_bindings = 1
+keymap("i", '<F8>', function() return vim.fn['codeium#Complete']() end, { expr = true })
+keymap("i", '<F10>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+keymap("i", '<F9>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+keymap("i", '<Tab>', function() return vim.fn['codeium#Accept']() end, { expr = true })

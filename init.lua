@@ -20,6 +20,7 @@ require "mappings"
 
 -- Disable Copilot by default
 vim.g.copilot_enabled = 0
+vim.g.codeium_enabled = false
 
 -- Commands/Whichkey related
 vim.g.mapleader       = " "

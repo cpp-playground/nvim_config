@@ -12,6 +12,11 @@ function copilot_status()
     if enabled then
         ret = "ﯙ "
     end
+
+    -- Check codeium
+    if vim.g.codeium_enabled then
+        ret = " "
+    end
     return ret
 end
 
@@ -29,8 +34,11 @@ require('lualine').setup {
             { 'mode', separator = { left = '', right = '' } }
         },
 
-        lualine_b = { 'branch', { 'diff', symbols = { added = ' ', modified = ' ', removed = ' ' },
-            on_click = show_global_diff } },
+        lualine_b = { 'branch', {
+            'diff',
+            symbols = { added = ' ', modified = ' ', removed = ' ' },
+            on_click = show_global_diff
+        } },
         lualine_c = {},
         lualine_x = {},
         lualine_y = { { "copilot_status()" }, { 'filetype', icon_only = false, icon = true },

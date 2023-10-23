@@ -11,7 +11,8 @@ return {
                 "pyright",
                 "rust_analyzer",
                 "yamlls",
-                "lua_ls"
+                "lua_ls",
+                "texlab"
             },
             server_configs = {
                 bashls = { on_attach = config_lsp.on_attach_default },
@@ -38,6 +39,7 @@ return {
                     }
                 },
                 lua_ls = { on_attach = config_lsp.on_attach_with_format },
+                texlab = { on_attach = config_lsp.on_attach_with_format }
             }
         },
         null_ls = {
@@ -61,7 +63,8 @@ return {
             "json",
             "lua",
             "markdown",
-            "yaml"
+            "yaml",
+            "latex"
         },
     },
     colorscheme = "kanagawa",
