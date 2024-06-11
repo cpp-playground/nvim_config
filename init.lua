@@ -20,7 +20,6 @@ require "mappings"
 
 -- Disable Copilot by default
 vim.g.copilot_enabled = 0
-vim.g.codeium_enabled = false
 
 -- Commands/Whichkey related
 vim.g.mapleader       = " "
@@ -53,3 +52,4 @@ vim.fn.sign_define("DiagnosticSignHint",
 require("themer").setup({
     colorscheme = user_config.colorscheme
 })
+require("themer").setup({ enable_installer = true })

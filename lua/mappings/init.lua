@@ -21,6 +21,11 @@ local visual_opts = {
 }
 
 
+function toggle_hints()
+    enabled = vim.lsp.inlay_hint.is_enabled()
+    vim.lsp.inlay_hint.enable(0, not enabled)
+end
+
 local lsp_mappings_normal = {
     l = {
         name = "Language Server tools",
@@ -72,7 +77,8 @@ local misc_mappings_normal = {
     q = { "<cmd>Bdelete<CR>", "Close file" },
     e = { "<cmd>Neotree toggle<CR>", "Toggle file explorer" },
     ["/"] = { require("Comment.api").toggle.linewise.current, "Comment line" },
-    D = {"<cmd>:TroubleToggle<CR>", "Toggle Diagnostics window"}
+    D = {"<cmd>:TroubleToggle<CR>", "Toggle Diagnostics window"},
+    h = { toggle_hints, "Toggle inlay hints" }
 }
 wk.register(misc_mappings_normal, normal_opts)
 
@@ -85,7 +91,8 @@ local git_mappings = {
         l = { "<cmd>Telescope git_commits<CR>", "Search Commits" },
         S = { "<cmd>Telescope git_branches<CR>", "Search Stashes" },
         s = { "<cmd>Telescope git_status<CR>", "Status" },
-        b = { "<cmd>BlamerToggle<CR>", "Toggle Inline Git blame" },
+        b = { "<cmd>BlameToggle virtual<CR>", "Toggle Git blame virtual text" },
+        g = { "<cmd>BlameToggle<CR>", "Toggle Git blame" },
     }
 }
 wk.register(git_mappings, normal_opts)
@@ -126,9 +133,3 @@ keymap("i", "<F8>", "<Plug>(copilot-suggest)", { silent = true, desc = "Trigger 
 keymap("i", "<F10>", "<Plug>(copilot-next)", { silent = true, desc = "Next copilot suggestion" })
 keymap("i", "<F9>", "<Plug>(copilot-previous)", { silent = true, desc = "Previous copilot suggestion" })
 
--- Keybindings for codeium, mimicking the copilot ones
--- vim.g.codeium_disable_bindings = 1
-keymap("i", '<F8>', function() return vim.fn['codeium#Complete']() end, { expr = true })
-keymap("i", '<F10>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-keymap("i", '<F9>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-keymap("i", '<Tab>', function() return vim.fn['codeium#Accept']() end, { expr = true })

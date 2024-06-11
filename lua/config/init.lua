@@ -9,7 +9,6 @@ M.setup = function(config)
 
     local modules = {
         "editor_ui",
-        "alpha",
         "language_support",
         "neo-tree",
         "diagnostics",
@@ -103,12 +102,7 @@ M.setup = function(config)
     whichkey.setup(conf)
 
     require("ibl").setup()
-    -- require("indent_blankline").setup {
-    -- for example, context is off by default, use this to turn it on
-    --    show_context_start = false,
-    --    show_current_context = true,
-    --}
-
+    require("blame").setup()
 
     require("gitsigns").setup()
     require("lsp-inlayhints").setup {
@@ -118,21 +112,6 @@ M.setup = function(config)
             },
         },
     }
-
-
-    vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
-    vim.api.nvim_create_autocmd("LspAttach", {
-        group = "LspAttach_inlayhints",
-        callback = function(args)
-            if not (args.data and args.data.client_id) then
-                return
-            end
-
-            local bufnr = args.buf
-            local client = vim.lsp.get_client_by_id(args.data.client_id)
-            require("lsp-inlayhints").on_attach(client, bufnr)
-        end,
-    })
 end
 
 return M

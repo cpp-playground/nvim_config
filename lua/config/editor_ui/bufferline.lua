@@ -12,15 +12,10 @@ require('bufferline').setup {
         left_trunc_marker = '',
         right_trunc_marker = '',
 
-        name_formatter = function(buf) -- buf contains a "name", "path" and "bufnr"
-            -- remove extension from markdown files for example
-            if buf.name:match('%.md') then
-                return vim.fn.fnamemodify(buf.name, ':t:r')
-            end
-        end,
+
         max_name_length = 18,
         max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-        truncate_names = true, -- whether or not tab names should be truncated
+        truncate_names = false, -- whether or not tab names should be truncated
         tab_size = 18,
         offsets = {
             {
@@ -33,7 +28,6 @@ require('bufferline').setup {
         color_icons = true, -- whether or not to add the filetype icon highlights
         show_tab_indicators = true,
         persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-        always_show_bufferline = true,
         show_close_icon = false,
     }
 }

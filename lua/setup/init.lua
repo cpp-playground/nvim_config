@@ -22,7 +22,7 @@ return require("packer").startup(function(use)
     -- LSP
     use "neovim/nvim-lspconfig"         -- LSP Server configurator
     use "lukas-reineke/lsp-format.nvim" -- LSP Based code formating
-    use { "glepnir/lspsaga.nvim",
+    use { "nvimdev/lspsaga.nvim",
         requires = {
             { "nvim-tree/nvim-web-devicons" },
             { "nvim-treesitter/nvim-treesitter" }
@@ -51,7 +51,7 @@ return require("packer").startup(function(use)
 
     -- UI ELements
     use {
-        "akinsho/bufferline.nvim",
+        "akinsho/bufferline.nvim", tag = "*"
     }                                         -- Buffer line (aka tabs)
     use "nvim-lualine/lualine.nvim"           -- Status line (bottom one)
     use "petertriho/nvim-scrollbar"           -- Side scrollbar
@@ -79,19 +79,14 @@ return require("packer").startup(function(use)
     use { "nvim-telescope/telescope.nvim", tag = "0.1.x" }           --Finds stuff
     use "ghassan0/telescope-glyph.nvim"                              -- Find glyphs like 
 
-    -- Dashboard
-    use "goolord/alpha-nvim"
-
-
     -- Themes
     use "themercorp/themer.lua"
 
 
     -- Copilot?
     use "github/copilot.vim"
-    use "Exafunction/codeium.vim"
 
-    use "APZelos/blamer.nvim"
+    use "FabijanZulj/blame.nvim"
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
