@@ -20,7 +20,8 @@ return {
                     on_attach = config_lsp.on_attach_with_format,
                     cmd = {
                         "clangd",
-                        "--header-insertion=never"
+                        "--header-insertion=never",
+                        "--compile-commands-dir=build"
                     }
                 },
                 cmake = { on_attach = config_lsp.on_attach_with_format },
